@@ -1,4 +1,3 @@
-// src/App.tsx
 import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import Login from "./pages/Login";
@@ -11,9 +10,10 @@ import AdminStores from "./pages/AdminStore";
 import RequireRole from "./components/RequireRole";
 import ChangePassword from "./pages/ChangePassword";
 import OwnerDashboard from "./pages/OwnerDashboard";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./index.css";
 
 export default function App() {
-  // const { user, logout } = useAuth();
   const { user, logout } = (useAuth && useAuth()) || {
     user: undefined,
     logout: () => {
@@ -23,45 +23,56 @@ export default function App() {
   };
 
   return (
-    <div className="p-4">
-      <nav className="mb-4">
-        {user?.role === "SYSTEM_ADMIN" && (
-          <>
-            <Link to="/admin/dashboard" style={{ marginRight: 8 }}>
-              Dashboard
+    <div className="container-app">
+      <nav className="d-flex align-items-center justify-content-between mb-4">
+        <div className="navbar-links">
+          {user?.role === "SYSTEM_ADMIN" && (
+            <>
+              <Link to="/admin/dashboard" className="btn btn-link">
+                Dashboard
+              </Link>
+              <Link to="/admin/stores" className="btn btn-link">
+                Admin Stores
+              </Link>
+              <Link to="/admin/users" className="btn btn-link">
+                Admin Users
+              </Link>
+            </>
+          )}
+          {user?.role === "STORE_OWNER" && (
+            <Link to="/owner/dashboard" className="btn btn-link">
+              Owner Dashboard
             </Link>
-            <Link to="/admin/stores" style={{ marginRight: 8 }}>
-              Admin Stores
-            </Link>
-            <Link to="/admin/users" style={{ marginRight: 8 }}>
-              Admin Users
-            </Link>
-          </>
-        )}
-        {user?.role === "STORE_OWNER" && (
-          <Link to="/owner/dashboard" style={{ marginRight: 8 }}>
-            Owner Dashboard
+          )}
+          <Link to="/stores" className="btn btn-link">
+            Stores
           </Link>
-        )}
+        </div>
 
-        <Link to="/stores" className="mr-4">
-          Stores
-        </Link>
-        {!user ? (
-          <>
-            <Link to="/login" className="mr-4">
-              Login
-            </Link>
-            <Link to="/signup">Signup</Link>
-          </>
-        ) : (
-          <>
-            <Link to="/me/change-password" style={{ marginRight: 8 }}>
-              Change password
-            </Link>
-            <button onClick={logout}>Logout</button>
-          </>
-        )}
+        <div>
+          {!user ? (
+            <>
+              <Link to="/login" className="btn btn-outline-primary me-2">
+                Login
+              </Link>
+              <Link to="/signup" className="btn btn-primary">
+                Signup
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/me/change-password"
+                className="btn btn-sm btn-outline-secondary me-2"
+              >
+                Change password
+              </Link>
+              <button onClick={logout} className="btn btn-danger btn-sm">
+                Logout
+              </button>
+            </>
+          )}
+        </div>
       </nav>
 
       <Routes>
@@ -69,6 +80,7 @@ export default function App() {
         <Route path="/stores" element={<Stores />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+
         <Route
           path="/admin"
           element={
@@ -77,6 +89,7 @@ export default function App() {
             </RequireRole>
           }
         />
+
         <Route
           path="/admin/users"
           element={
@@ -85,6 +98,7 @@ export default function App() {
             </RequireRole>
           }
         />
+
         <Route
           path="/admin/stores"
           element={
@@ -93,6 +107,7 @@ export default function App() {
             </RequireRole>
           }
         />
+
         <Route
           path="/me/change-password"
           element={
@@ -103,6 +118,7 @@ export default function App() {
             </RequireRole>
           }
         />
+
         <Route
           path="/owner/dashboard"
           element={
@@ -111,6 +127,7 @@ export default function App() {
             </RequireRole>
           }
         />
+
         <Route
           path="/admin/dashboard"
           element={

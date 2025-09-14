@@ -1,68 +1,96 @@
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --app-bg: #f7fafc;
+  --card-bg: #ffffff;
+  --muted: #6b7280;
+  --accent: #646cff;
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --app-bg: #121212;
+    --card-bg: #1a1a1a;
+    --muted: #9ca3af;
+  }
+}
+
+/* Page layout */
+body {
+  margin: 0;
+  background: var(--app-bg);
+  color: #111827;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+/* Application container (centred content) */
+.container-app {
+  max-width: 1100px;
+  margin: 24px auto;
+  padding: 20px;
+  background: var(--card-bg);
+  border-radius: 10px;
+  box-shadow: 0 6px 22px rgba(16,24,40,0.06);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Navbar links (small spacing) */
+.navbar-links a,
+.navbar-links .btn {
+  margin-right: 12px;
 }
 
-button {
+/* Card small tweaks for store card look */
+.store-card {
+  border: 1px solid rgba(0,0,0,0.06);
+  padding: 18px;
+  margin-bottom: 16px;
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  background: var(--card-bg);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* Small utility adjustments */
+.small-muted {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.section-title {
+  margin-top: 8px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+/* Form spacing */
+.form-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr;
+}
+
+/* Button sizes */
+.btn-rating {
+  min-width: 40px;
+  min-height: 36px;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+/* Table tweaks in admin pages */
+.table thead th {
+  font-weight: 600;
+}
+
+/* Minor responsive fix for inputs in Stores page */
+@media (max-width: 576px) {
+  .search-row .form-control { margin-bottom: 8px; }
+}
+
+/* Link hover */
+a {
+  color: var(--accent);
 }
