@@ -143,6 +143,8 @@ REFRESH_TOKEN_SECRET="your_refresh_secret_here"
 ```bash
 cd backend
 npm install
+npm install express @prisma/client prisma bcrypt jsonwebtoken express-validator cors cookie-parser morgan dotenv
+npm install --save-dev typescript ts-node-dev @types/express @types/node @types/bcrypt @types/jsonwebtoken @types/cookie-parser @types/cors @types/morgan
 npx prisma generate
 npx prisma migrate dev --name init
 npm run dev
@@ -151,8 +153,10 @@ npm run dev
 ### Frontend
 
 ```bash
+# Frontend
 cd frontend
 npm install
+npm install react-router-dom axios react-hook-form
 npm run dev
 ```
 
