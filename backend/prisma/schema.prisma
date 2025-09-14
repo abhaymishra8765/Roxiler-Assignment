@@ -7,11 +7,50 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
-  role      String   @default("NORMAL_USER")
-  createdAt DateTime @default(now())
+enum Role {
+  SYSTEM_ADMIN
+  NORMAL_USER
+  STORE_OWNER
 }
+
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  password     String
+  address      String?
+  role         Role     @default(NORMAL_USER)
+  refreshToken String?
+  stores       Store[]  @relation("OwnerStores")
+  ratings      Rating[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Store {
+  id        Int     @id @default(autoincrement())
+  name      String
+  email     String?
+  address   String?
+  ownerId   Int?
+  owner     User?   @relation("OwnerStores", fields: [ownerId], references: [id])
+  ratings   Rating[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Rating {
+  id        Int     @id @default(autoincrement())
+  user      User    @relation(fields: [userId], references: [id])
+  userId    Int
+  store     Store   @relation(fields: [storeId], references: [id])
+  storeId   Int
+  rating    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, storeId]) 
+  @@index([storeId])
+  @@index([userId])
+}
+
