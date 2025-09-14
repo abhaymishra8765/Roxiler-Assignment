@@ -1,4 +1,4 @@
-# Roxilar — Store Ratings App
+# Roxiler — Store Ratings App
 
 A full-stack web application that allows users to rate stores (1–5).  
 Implements a single login system with **role-based access**:
